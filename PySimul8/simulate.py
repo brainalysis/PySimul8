@@ -265,11 +265,11 @@ class make_fr():
     fig.show()
 
 
-df = pd.DataFrame(dict(index=['demand','price','sales','cost','expenses','cash'],year1=[0,10,0,0,0,0],year2=[0,10,0,0,0,0],year3=[0,10,0,0,0,0],year4=[0,10,0,0,0,0]))
-df.set_index('index',inplace=True)
+#df = pd.DataFrame(dict(index=['demand','price','sales','cost','expenses','cash'],year1=[0,10,0,0,0,0],year2=[0,10,0,0,0,0],year3=[0,10,0,0,0,0],year4=[0,10,0,0,0,0]))
+#df.set_index('index',inplace=True)
 
-q = "select demand,price,demand*price as sales, cost ,demand*cost as expenses, (demand*price)-(demand*cost) as cash from df"
-fr = make_fr(data=df,
+#q = "select demand,price,demand*price as sales, cost ,demand*cost as expenses, (demand*price)-(demand*cost) as cash from df"
+#fr = make_fr(data=df,
              number_of_simulations= 10000,
              feature_to_simulate= 'cash',
              sql_query= q,
@@ -277,10 +277,10 @@ fr = make_fr(data=df,
              Required_Rate= 0.20,
              Initial_investment= -500)
 
-fr.NDist(price=[10,2])
-fr.TriDist(cost=[2,8,12],demand=[10,100,250])
-l = fr.simul8()
+#fr.NDist(price=[10,2])
+#fr.TriDist(cost=[2,8,12],demand=[10,100,250])
+#l = fr.simul8()
 
-fr.visualize(visualize_on = 'feature_only_sum')
-fr.visualize(visualize_on = 'NPV')
-fr.visualize(visualize_on = 'IRR')
+#fr.visualize(visualize_on = 'feature_only_sum')
+#fr.visualize(visualize_on = 'NPV')
+#fr.visualize(visualize_on = 'IRR')
