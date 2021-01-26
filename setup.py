@@ -13,7 +13,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/brainalysis/PySimul8",
     packages=setuptools.find_packages(),
-    package_dir = {'':'PySimul8'},
     install_requires = ['numpy', 'pandas','pandasql','plotly','numpy_financial'],
     extras_require= {"dev" : ["pytest>=3.7",],},
     classifiers=[
