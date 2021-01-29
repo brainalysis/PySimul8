@@ -56,15 +56,15 @@ class make_fr():
 
     """
     self.n_details = details
-    self.ND = {}
+    self.LnD = {}
 
     for d in details:
       col = np.random.lognormal(details[d][0],details[d][1],(self.number_of_simulations,self.pd)) 
-      self.ND.update({d:col})
+      self.LnD.update({d:col})
 
     # update the global dict
-    self.all_random_numbers.update(self.ND)
-    return(self.ND)
+    self.all_random_numbers.update(self.LnD)
+    return(self.LnD)
 
   #triangle distribution
   def TriDist(self,**details):
@@ -95,15 +95,15 @@ class make_fr():
 
     """
     self.n_details = details
-    self.ND = {}
+    self.PD = {}
 
     for d in details:
       col = np.random.poisson(details[d][0],(self.number_of_simulations,self.pd))
-      self.ND.update({d:col})
+      self.PD.update({d:col})
 
     # update the global dict
-    self.all_random_numbers.update(self.ND)
-    return(self.ND)
+    self.all_random_numbers.update(self.PD)
+    return(self.PD)
 
   # exponential distribution
   def EDist(self,**details):
@@ -115,15 +115,15 @@ class make_fr():
 
     """
     self.n_details = details
-    self.ND = {}
+    self.ED = {}
 
     for d in details:
       col = np.random.exponential(details[d][0],(self.number_of_simulations,self.pd))
-      self.ND.update({d:col})
+      self.ED.update({d:col})
 
     # update the global dict
-    self.all_random_numbers.update(self.ND)
-    return(self.ND)
+    self.all_random_numbers.update(self.ED)
+    return(self.ED)
 
   # binomial distribution
   def BDist(self,**details):
@@ -135,15 +135,15 @@ class make_fr():
 
     """
     self.n_details = details
-    self.ND = {}
+    self.BD = {}
 
     for d in details:
       col = np.random.binomial(details[d][0],details[d][1],(self.number_of_simulations,self.pd))
-      self.ND.update({d:col})
+      self.BD.update({d:col})
 
     # update the global dict
-    self.all_random_numbers.update(self.ND)
-    return(self.ND)
+    self.all_random_numbers.update(self.BD)
+    return(self.BD)
 
   # unifrom distribution
   def UDist(self,**details):
@@ -155,15 +155,15 @@ class make_fr():
 
     """
     self.n_details = details
-    self.ND = {}
+    self.UD = {}
 
     for d in details:
       col = np.random.uniform(details[d][0],details[d][1],(self.number_of_simulations,self.pd))
-      self.ND.update({d:col})
+      self.UD.update({d:col})
 
     # update the global dict
-    self.all_random_numbers.update(self.ND)
-    return(self.ND)
+    self.all_random_numbers.update(self.UD)
+    return(self.UD)
 
 
   def simul8(self):
@@ -263,24 +263,3 @@ class make_fr():
     fig.update_yaxes(title_text="<b>Count of %s%s values </b>" % (visualize_on,fr.feature_to_simulate), secondary_y=False)
     fig.update_yaxes(title_text= "<b>Cumulative probability of %s%s values</b>" % (visualize_on,fr.feature_to_simulate), secondary_y=True)
     fig.show()
-
-
-#df = pd.DataFrame(dict(index=['demand','price','sales','cost','expenses','cash'],year1=[0,10,0,0,0,0],year2=[0,10,0,0,0,0],year3=[0,10,0,0,0,0],year4=[0,10,0,0,0,0]))
-#df.set_index('index',inplace=True)
-
-#q = "select demand,price,demand*price as sales, cost ,demand*cost as expenses, (demand*price)-(demand*cost) as cash from df"
-#fr = make_fr(data=df,
-             number_of_simulations= 10000,
-             feature_to_simulate= 'cash',
-             sql_query= q,
-             calculate_NPV_IRR= True,
-             Required_Rate= 0.20,
-             Initial_investment= -500)
-
-#fr.NDist(price=[10,2])
-#fr.TriDist(cost=[2,8,12],demand=[10,100,250])
-#l = fr.simul8()
-
-#fr.visualize(visualize_on = 'feature_only_sum')
-#fr.visualize(visualize_on = 'NPV')
-#fr.visualize(visualize_on = 'IRR')
