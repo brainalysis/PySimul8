@@ -1,4 +1,4 @@
-
+import pytest
 import pandas as pd
 from PySimul8.simulate import make_fr
 
@@ -13,11 +13,38 @@ fr = make_fr(data=df,
              Required_Rate= 0.20,
              Initial_investment= -500)
 
-def test_default_values():
-    assert fr.data == df
+def test_simulations():
+    """
+    To check the number of simulations
+    """
     assert fr.number_of_simulations == 10000
+    
+def test_feature_to_simulate():
+    """
+    To check the feature to simulate
+    """
     assert fr.feature_to_simulate == 'cash'
+    
+def test_query():
+    """
+    To check the query
+    """
     assert fr.query == q
+    
+def test_NPV_IRR():
+    """
+    To check the NPV and IRR parameter
+    """
     assert fr.calculate_NPV_IRR == True
+    
+def test_req_rate():
+    """
+    To check the required rate
+    """
     assert fr.Required_Rate == 0.20
-    assert fr.Initial_investment == 500
+    
+def test_investment():
+    """
+    To check the initial investement
+    """
+    assert fr.Initial_investment == -500
