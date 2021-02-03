@@ -179,7 +179,7 @@ class make_fr():
     for i in range(self.number_of_simulations):
 
       # get the random number for the current i
-      for k,v in zip(fr.all_random_numbers.keys(),fr.all_random_numbers.values()):
+      for k,v in zip(self.all_random_numbers.keys(),self.all_random_numbers.values()):
         #print(k,v[i])
         copy_data[k] = v[i]
         copy_data_updated = copy_data.copy()
@@ -223,13 +223,13 @@ class make_fr():
     # selecting which value to visualize
     x_val = ""
     if visualize_on.upper() == 'IRR':
-      x_val = fr.IRR
+      x_val = self.IRR
       visualize_on = "IRR for "
     elif visualize_on.upper() == 'NPV':
-      x_val = fr.NPV
+      x_val = self.NPV
       visualize_on = "NPV for "
     else:
-      x_val = fr.feature_only_sum
+      x_val = self.feature_only_sum
       visualize_on = ""
 
     # Create figure with secondary y-axis
@@ -237,12 +237,12 @@ class make_fr():
 
     # Add traces
     fig.add_trace(
-      go.Histogram(name='%s%s count' % (visualize_on,fr.feature_to_simulate), x= x_val 
+      go.Histogram(name='%s%s count' % (visualize_on,self.feature_to_simulate), x= x_val 
       ),
       secondary_y=False,
     )
     fig.add_trace(
-      go.Histogram(name = 'Cumulative probability of %s %s' % (visualize_on,fr.feature_to_simulate), x = x_val,histnorm='probability',
+      go.Histogram(name = 'Cumulative probability of %s %s' % (visualize_on,self.feature_to_simulate), x = x_val,histnorm='probability',
                    cumulative={'enabled':True, 'direction': 'increasing','currentbin':'include'}, opacity= 0.5,
                    hoverlabel = dict(namelength = -1), marker=dict(color='mediumseagreen')
                    ),
@@ -250,16 +250,16 @@ class make_fr():
 
     # updating layout
     fig.update_layout(
-      title_text="<b>Distribution of %s%s values</b>" % (visualize_on,fr.feature_to_simulate),
+      title_text="<b>Distribution of %s%s values</b>" % (visualize_on,self.feature_to_simulate),
       title_x=0.43,
       template = 'simple_white',
       yaxis = {'showspikes' : True}
     )
 
     # Set x-axis title
-    fig.update_xaxes(title_text="<b>%s%s values</b>" % (visualize_on,fr.feature_to_simulate))
+    fig.update_xaxes(title_text="<b>%s%s values</b>" % (visualize_on,self.feature_to_simulate))
 
     # Set y-axes titles
-    fig.update_yaxes(title_text="<b>Count of %s%s values </b>" % (visualize_on,fr.feature_to_simulate), secondary_y=False)
-    fig.update_yaxes(title_text= "<b>Cumulative probability of %s%s values</b>" % (visualize_on,fr.feature_to_simulate), secondary_y=True)
+    fig.update_yaxes(title_text="<b>Count of %s%s values </b>" % (visualize_on,self.feature_to_simulate), secondary_y=False)
+    fig.update_yaxes(title_text= "<b>Cumulative probability of %s%s values</b>" % (visualize_on,self.feature_to_simulate), secondary_y=True)
     fig.show()
