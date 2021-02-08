@@ -1,11 +1,11 @@
 import pytest
 import pandas as pd
-from PySimul8.simulate import make_fr
+from PySimul8.simulation import simulator
 
 df = pd.DataFrame(dict(index=['demand','price','sales','cost','expenses','cash'],year1=[0,10,0,0,0,0],year2=[0,10,0,0,0,0],year3=[0,10,0,0,0,0],year4=[0,10,0,0,0,0]))
 df.set_index('index',inplace=True)
 q = "select demand,price,demand*price as sales, cost ,demand*cost as expenses, (demand*price)-(demand*cost) as cash from df"
-fr = make_fr(data=df,
+fr = simulator(data=df,
              number_of_simulations= 10000,
              feature_to_simulate= 'cash',
              sql_query= q,
