@@ -1,3 +1,11 @@
+# Module: Financial Simulation
+# Authors: Abhimanyu Anand <abhimanyu7296@gmail.com>, Fahad Akbar <m.akbar@queensu.ca>
+# License: MIT
+
+
+##################################################################################################################################################################################
+
+#importing libraries
 import numpy as np
 import pandas as pd
 import pandasql as ps
@@ -6,10 +14,29 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
+# _______________________________________________________________________________________________________________________
+
 
 class simulator():
 
+   '''
+    - This will try to simulate the values of different metrics/feature financial data, like cash, NPV (Net Present Value), IRR (Internal Rate of Return) values etc..
+    - This can also create simulations for data belonging to different distributions like unifrom, normal, lognormal etc..
+  '''
+
   def __init__(self,data,number_of_simulations,feature_to_simulate,sql_query,calculate_NPV_IRR=False,Required_Rate=None,Initial_investment=None):
+    '''
+    User to define the feature to simulate variable
+      args:
+                         data: pandas dataframe, pass in the dataframe with columns to simulate upon
+        number_of_simulations: integer, the number of itreations to run simulations for a specific feature
+          feature_to_simulate: string, name of feature column to generate simulation for.
+                    sql_query: string, provide a sql query to create calculate fields like sales from demand and price values,
+            calculate_NPV_IRR: boolean, provide a boolean value, for deciding whether to create NPR or IRR values, default False, when False NPV and IRR values will not be calculated
+                Required_Rate: integer, provide the required rate value for calculating NPV and IRR values, default None, when None NPV and IRR values will not be calculated
+           Initial_investment: integer, provide initial investment value to be added to cah values for simulation, default None, when None 0 will be added to cash simulation values.
+  '''
+    
     self.data = data.transpose()
     self.pd = data.shape[1]
     self.number_of_simulations = number_of_simulations
@@ -29,11 +56,14 @@ class simulator():
   # normal distribution
   def NDist(self,**details):
     """
-    Provide variable name , mean & std
-    e.g.:
-      demand = [50,5]
-      temperature = [20,2]
-
+    To calculate the simulation of norammlly distributed variable
+    Args: 
+      Provide variable name , mean & std
+      e.g.:
+        demand = [50,5]
+        temperature = [20,2]
+    Returns:
+        list 
     """
     self.n_details = details
     self.ND = {}
@@ -49,11 +79,14 @@ class simulator():
   # log normal distribution
   def LnDist(self,**details):
     """
-    Provide variable name , mean & std
-    e.g.:
-      share price = [50,5]
-      rainfall = [20,2]
-
+    To calculate the simulation of log norammlly distributed variable
+    Args: 
+      Provide variable name , mean & std
+      e.g.:
+        share price = [50,5]
+        rainfall = [20,2]
+    Returns:
+        list 
     """
     self.n_details = details
     self.LnD = {}
@@ -69,11 +102,14 @@ class simulator():
   #triangle distribution
   def TriDist(self,**details):
     """
-    Provide variable name , lowest value, most likely value & maximum value
-    e.g.:
-      demand = [10,100,250]
-      temp = [-10,18,40]
-
+    To calculate the simulation of a variable following triangle distribution
+    Args: 
+      Provide variable name , lowest value, most likely value & maximum value
+      e.g.:
+        demand = [10,100,250]
+        temp = [-10,18,40]
+    Returns:
+        list 
     """
     self.t_details = details
     self.TD = {}
@@ -88,11 +124,14 @@ class simulator():
   # poisson distribution
   def PDist(self,**details):
     """
-    Provide variable name , lambda
-    e.g.:
-      Daily portfolio loss below 5% = [50]
-      Number of births per hour during a given day = [20]
-
+    To calculate the simulation of a variable following poisson distribution
+    Args: 
+      Provide variable name , lambda
+      e.g.:
+        Daily portfolio loss below 5% = [50]
+        Number of births per hour during a given day = [20]
+    Returns:
+        list 
     """
     self.n_details = details
     self.PD = {}
@@ -108,11 +147,14 @@ class simulator():
   # exponential distribution
   def EDist(self,**details):
     """
-    Provide variable name , lambda
-    e.g.:
-      amount of time until an earthquake occurs = [50]
-      length business telephone calls = [20]
-
+    To calculate the simulation of a variable following exponential distribution
+    Args:
+      Provide variable name , lambda
+      e.g.:
+        amount of time until an earthquake occurs = [50]
+        length business telephone calls = [20]
+    Returns:
+        list 
     """
     self.n_details = details
     self.ED = {}
@@ -128,11 +170,14 @@ class simulator():
   # binomial distribution
   def BDist(self,**details):
     """
-    Provide variable name , number of trials, probability of success
-    e.g.:
-      druug works or not = [50, 0.4]
-      win a lottery or not = [20, 0.3]
-
+    To calculate the simulation of a variable following binomial distribution
+    Args:
+      Provide variable name , number of trials, probability of success
+      e.g.:
+        druug works or not = [50, 0.4]
+        win a lottery or not = [20, 0.3]
+    Returns:
+        list 
     """
     self.n_details = details
     self.BD = {}
@@ -148,11 +193,14 @@ class simulator():
   # unifrom distribution
   def UDist(self,**details):
     """
-    Provide variable name , low, high
-    e.g.:
-      coin toss = [0, 1]
-      deck of cards = [0, 13]
-
+    To calculate the simulation of a variable following unifrom distribution
+    Args:
+      Provide variable name , low, high
+      e.g.:
+        coin toss = [0, 1]
+        deck of cards = [0, 13]
+    Returns:
+        list 
     """
     self.n_details = details
     self.UD = {}
@@ -167,7 +215,13 @@ class simulator():
 
 
   def simulate(self):
-
+   """
+    To generate the simulated data for the target feature
+    To calculate the NPV/IRR value if calculate_NPV_IRR is set to True
+    Returns:
+        list 
+    """
+  
     copy_data = self.data.copy()
  
     self.full_data = []
@@ -217,8 +271,17 @@ class simulator():
     min_irr = np.min([i for i in self.IRR if i is not np.nan])
     self.IRR = [min_irr if np.isnan(x) else x for x in self.IRR]
     return(self.full_data)
+   
   
   def visualize(self, visualize_on = 'feature_only_sum'):
+     """
+    To visualize the simulated data
+    Displays the cumulative probability of the values via a histogram
+    Args:
+      visualize_on: string, name of the feature/column to display
+    Returns:
+      None
+    """
     
     # selecting which value to visualize
     x_val = ""
