@@ -1,4 +1,4 @@
-# Module: Financial Simulation
+# Module: Financial Data Simulation
 # Authors: Abhimanyu Anand <abhimanyu7296@gmail.com>, Fahad Akbar <m.akbar@queensu.ca>
 # License: MIT
 
