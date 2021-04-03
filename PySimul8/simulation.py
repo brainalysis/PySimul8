@@ -1,5 +1,5 @@
 # Module: Financial Data Simulation
-# Authors: Abhimanyu Anand <abhimanyu7296@gmail.com>, Fahad Akbar <m.akbar@queensu.ca>
+# Authors: Abhimanyu Anand <abhimanyu7296@gmail.com>, Fahad Akbar <m.akbar@queensu.ca>, Suman K Batra <sumanbatra1996@gmail.com>
 # License: MIT
 
 
@@ -21,20 +21,20 @@ class simulator():
 
   '''
     - This will try to simulate the values of different metrics/feature financial data, like cash, NPV (Net Present Value), IRR (Internal Rate of Return) values etc..
-    - This can also create simulations for data belonging to different distributions like unifrom, normal, lognormal etc..
+    - This can also create simulations for data belonging to different distributions like uniform, normal, lognormal etc..
   '''
 
   def __init__(self,data,number_of_simulations,feature_to_simulate,sql_query,calculate_NPV_IRR=False,Required_Rate=None,Initial_investment=None):
     '''
-    User to define the feature to simulate variable
+    User will define the feature to simulate variable
       args:
                          data: pandas dataframe, pass in the dataframe with columns to simulate upon
-        number_of_simulations: integer, the number of itreations to run simulations for a specific feature
+        number_of_simulations: integer, the number of iterations to run simulations for a specific feature
           feature_to_simulate: string, name of feature column to generate simulation for.
-                    sql_query: string, provide a sql query to create calculate fields like sales from demand and price values,
-            calculate_NPV_IRR: boolean, provide a boolean value, for deciding whether to create NPR or IRR values, default False, when False NPV and IRR values will not be calculated
+                    sql_query: string, provide a sql query to create, calculate fields like sales from demand and price values,
+            calculate_NPV_IRR: boolean, provide a boolean value, for deciding whether to create NPR or IRR values, default False, when the value is False NPV and IRR values will not be calculated
                 Required_Rate: integer, provide the required rate value for calculating NPV and IRR values, default None, when None NPV and IRR values will not be calculated
-           Initial_investment: integer, provide initial investment value to be added to cah values for simulation, default None, when None 0 will be added to cash simulation values.
+           Initial_investment: integer, provide initial investment value to be added to cash values for simulation, default None, when None 0 will be added to cash simulation values.
      '''
     
     self.data = data.transpose()
