@@ -35,7 +35,7 @@ class simulator():
             calculate_NPV_IRR: boolean, provide a boolean value, for deciding whether to create NPR or IRR values, default False, when False NPV and IRR values will not be calculated
                 Required_Rate: integer, provide the required rate value for calculating NPV and IRR values, default None, when None NPV and IRR values will not be calculated
            Initial_investment: integer, provide initial investment value to be added to cah values for simulation, default None, when None 0 will be added to cash simulation values.
-  '''
+     '''
     
     self.data = data.transpose()
     self.pd = data.shape[1]
