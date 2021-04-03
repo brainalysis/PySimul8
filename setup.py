@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name="PySimul8",
     version="0.0.1",
-    author="Fahad Akbar, Abhimanyu Anand",
+    author="Fahad Akbar, Abhimanyu Anand, Suman K Batra",
     author_email="abhimanyu7296@gmail.com",
     description="A simulation package for cash flows",
     long_description=long_description,
