@@ -215,7 +215,7 @@ class simulator():
 
 
   def simulate(self):
-   """
+    """
     To generate the simulated data for the target feature
     To calculate the NPV/IRR value if calculate_NPV_IRR is set to True
     Returns:
@@ -274,7 +274,7 @@ class simulator():
    
   
   def visualize(self, visualize_on = 'feature_only_sum'):
-     """
+    """
     To visualize the simulated data
     Displays the cumulative probability of the values via a histogram
     Args:
