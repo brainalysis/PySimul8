@@ -19,7 +19,7 @@ from plotly.subplots import make_subplots
 
 class simulator():
 
-   '''
+  '''
     - This will try to simulate the values of different metrics/feature financial data, like cash, NPV (Net Present Value), IRR (Internal Rate of Return) values etc..
     - This can also create simulations for data belonging to different distributions like unifrom, normal, lognormal etc..
   '''
